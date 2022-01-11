@@ -3,7 +3,7 @@ import { WalletService } from './wallet.service';
 import { CreateWalletDto } from './dto/create-wallet.dto';
 import { UpdateWalletDto } from './dto/update-wallet.dto';
 
-@Controller('wallet')
+@Controller('/api/v1/wallet')
 export class WalletController {
   constructor(private readonly walletService: WalletService) {}
 
