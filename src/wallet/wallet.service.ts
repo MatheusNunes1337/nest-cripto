@@ -18,7 +18,7 @@ export class WalletService {
     return this.walletRepository.find()
   }
 
-  findOne(id: number) {
+  findOne(id: number)  {
     return `This action returns a #${id} wallet`;
   }
 
@@ -26,7 +26,7 @@ export class WalletService {
     return `This action updates a #${id} wallet`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} wallet`;
+  remove(id: string): Promise<{}> {
+    return this.walletRepository.delete(id)
   }
 }
