@@ -1,19 +1,13 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
-@Module({
-  imports: [
-    TypeOrmModule.forRoot({
+export const typeOrmConfig: TypeOrmModuleOptions = {
       type: 'postgres',
       host: 'localhost',
       port: 5432,
       username: 'postgres',
       password: 'postgres',
-      database: 'nest-cripto',
-      entities: [],
-      synchronize: true,
-    }),
-  ],
-})
+      database: 'cripto',
+      entities: ['dist/wallet/entities/*.entity.js'],
+      synchronize: true
+}
 
-export class DatabaseModule {}
