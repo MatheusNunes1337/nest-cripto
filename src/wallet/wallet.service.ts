@@ -18,8 +18,8 @@ export class WalletService {
     return this.walletRepository.find()
   }
 
-  findOne(id: number)  {
-    return `This action returns a #${id} wallet`;
+  findOne(id: string)  {
+    return this.walletRepository.findOne({address: id})
   }
 
   update(id: number, updateWalletDto: UpdateWalletDto) {
