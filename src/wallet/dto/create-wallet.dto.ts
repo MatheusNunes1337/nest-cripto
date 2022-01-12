@@ -1,1 +1,5 @@
-export class CreateWalletDto {}
+export class CreateWalletDto {
+    name: string
+    cpf: string
+    birthdate: Date
+}
