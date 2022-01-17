@@ -21,10 +21,4 @@ export class CoinDto {
   })
   @JoiSchema(Joi.number().required())
   value: number;
-
-  @ApiProperty({
-    description: 'The wallet it belongs',
-  })
-  @JoiSchema(Joi.string().required())
-  wallet: Wallet;
 }
