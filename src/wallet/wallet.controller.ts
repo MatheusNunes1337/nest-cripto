@@ -31,19 +31,22 @@ export class WalletController {
     return await this.walletService.findAll(query);
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return await this.walletService.findByAddress(id);
+  @Get(':address')
+  async findOne(@Param(JoiPipe) address: AddressDto) {
+    return await this.walletService.findByAddress(address);
   }
 
-  @Put(':id')
-  async update(@Param('id') address: string, @Body() CoinDto: Array<CoinDto>) {
+  @Put(':address')
+  async update(
+    @Param('id') address: AddressDto,
+    @Body() CoinDto: Array<CoinDto>,
+  ) {
     return await this.walletService.update(address, CoinDto);
   }
 
-  @Delete(':id')
+  @Delete(':address')
   @HttpCode(204)
-  async remove(@Param(JoiPipe) address: string) {
+  async remove(@Param(JoiPipe) address: AddressDto) {
     return await this.walletService.remove(address);
   }
 }
