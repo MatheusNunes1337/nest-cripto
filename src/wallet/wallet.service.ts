@@ -15,6 +15,11 @@ import Coin from './entities/coin.entity';
 import { CoinDto } from './dto/coin.dto';
 import { AddressDto } from './dto/address.dto';
 import { convertCoin } from 'src/utils/convertCoin';
+import {
+  IPaginationOptions,
+  paginate,
+  Pagination,
+} from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class WalletService {
@@ -32,8 +37,13 @@ export class WalletService {
     return this.walletRepository.save(createWalletDto);
   }
 
-  findAll(filter: SearchWalletDto): Promise<Wallet[]> {
-    return this.walletRepository.find(filter);
+  async findAll(
+    options: IPaginationOptions,
+    filter: SearchWalletDto,
+  ): Promise<Pagination<Wallet>> {
+    return await paginate<Wallet>(this.walletRepository, options, {
+      where: filter,
+    });
   }
 
   async findByAddress(address: AddressDto): Promise<Wallet> {
