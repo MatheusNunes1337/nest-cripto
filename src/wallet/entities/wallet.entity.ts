@@ -22,10 +22,7 @@ export class Wallet {
   @Column({ type: 'date', nullable: false })
   birthdate: Date;
 
-  @OneToMany(() => Coin, (coins) => coins.id, {
-    onDelete: 'CASCADE',
-    cascade: true,
-  })
+  @OneToMany(() => Coin, (coin) => coin.wallet, { eager: true })
   coins: Coin[];
 
   @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP(6)', select: false })
