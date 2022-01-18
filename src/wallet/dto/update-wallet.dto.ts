@@ -8,5 +8,5 @@ export class UpdateWalletDto extends PartialType(WalletDto) {
     description: 'Coins of wallet',
     required: true,
   })
-  coins: CoinDto;
+  coins: CoinDto[];
 }

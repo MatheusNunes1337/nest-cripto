@@ -15,6 +15,9 @@ import { SearchWalletDto } from './dto/search-wallet.dto';
 import { JoiPipe } from 'nestjs-joi';
 import { AddressDto } from './dto/address.dto';
 import { CoinDto } from './dto/coin.dto';
+import { Wallet } from './entities/wallet.entity';
+import { Pagination } from 'nestjs-typeorm-paginate';
+import { ApiCreatedResponse, ApiQuery } from '@nestjs/swagger';
 
 @Controller('/api/v1/wallet')
 export class WalletController {
@@ -27,8 +30,14 @@ export class WalletController {
   }
 
   @Get()
-  async findAll(@Query() query: SearchWalletDto) {
-    return await this.walletService.findAll(query);
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  @ApiQuery({ name: 'page', required: false, type: Number })
+  async findAll(
+    @Query('limit') limit = 100,
+    @Query('page') page = 1,
+    @Query() query: SearchWalletDto,
+  ): Promise<Pagination<Wallet>> {
+    return await this.walletService.findAll({ limit, page }, query);
   }
 
   @Get(':address')
@@ -38,7 +47,7 @@ export class WalletController {
 
   @Put(':address')
   async update(
-    @Param('id') address: AddressDto,
+    @Param(JoiPipe) address: AddressDto,
     @Body() CoinDto: Array<CoinDto>,
   ) {
     return await this.walletService.update(address, CoinDto);
